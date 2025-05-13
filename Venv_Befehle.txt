@@ -1,0 +1,9 @@
+# Erstellen einer virtuellen Umgebung:
+python -m venv venv
+
+# Aktivieren der virtuellen Umgebung
+venv/Scripts/activate
+
+# Error: Aktivieren schlägt Fehl wegen "excution policies
+# Danach nochmal Aktivieren
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned

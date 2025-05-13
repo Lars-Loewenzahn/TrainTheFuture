@@ -10,8 +10,6 @@ window = QWidget()
 
 answer_button = QPushButton('Answer')
 answer_button.setStyleSheet("background-color : yellow")
-print(dir(answer_button))
-
 info_text = QLabel('The most difficult question in the world!')
 
 layout_line1 = QVBoxLayout()
@@ -29,7 +27,6 @@ RadioGroupBox.setLayout(layout_ans1)
 
 layout_line1.addWidget(info_text, alignment=Qt.AlignCenter)
 layout_line1.addWidget(RadioGroupBox)
-layout_line1.addSpacing(100)
 layout_line1.addWidget(answer_button)
 
 window.setWindowTitle('Memo Card')

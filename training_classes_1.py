@@ -4,10 +4,13 @@ class Button:
         self.x = x_num
         self.y = y_num
         self.appearance = True
+        
     def hide(self):
         self.appearance = False
+
     def show(self):
         self.appearance = True
+
     def print_status(self ):
         print('Widget data:')
         print(self.title, self.x, self.y, self.appearance)

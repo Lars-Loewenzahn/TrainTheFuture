@@ -7,3 +7,6 @@ venv/Scripts/activate
 # Error: Aktivieren schlägt Fehl wegen "excution policies
 # Danach nochmal Aktivieren
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+# Falls eine Libary fehlt, z.b. PyQt5 gebe ein:
+pip install pyqt5

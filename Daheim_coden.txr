@@ -1,0 +1,37 @@
+### Wie kann man daheim coden?
+
+## Python installieren
+Nutze den Microsoft Store um Python 3.13 zu installieren
+
+## Windsurf
+Lade Windsurf herunter und installiere es.
+Melde dich mit deiner E-Mail Adresse an. 
+Falls du noch keine hast, mach dir eine. 
+Während der Nutzung wird Windsurf oft die Installtion von benötigten Paketen selbst
+empfehlen. Du brauchst die auch. Lass sie von Windsurf im Hintergrund installieren.
+Lade einen Projektordner, z.b. diesen hier herunter
+Öffne den Projekt-Ordner mit Windsurf
+Du wirst noch keinen Ordner namens "venv" haben.
+Öffne den Terminal und tippe: (du kannst den Terminal starten indem ein Progamm startest)
+python -m venv venv
+ein
+Dann
+venv/Scripts/activate
+Falls nun ein roter Error erscheint, dann hast du wahrscheinlich keine
+Admin rechte.
+Tippe:
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+um dir selbst Admin Rechte zu geben
+Dann wieder
+venv/Scripts/activate
+Wenn du nun ein Programm startest und es kommt die Meldung: 
+"module not found PyQt5"
+Dann tippe in den Terminal:
+pip install pyqt5
+
+Falls du an einer stelle nicht weiter kommst, 
+mache einen Screenshot oder fotografier den Bildschirm ab und 
+sende es an lars@trainthefuture.com
+oder 01729984906
+oder bringe es zur nächsten Unterrichteinheit mit. 
+

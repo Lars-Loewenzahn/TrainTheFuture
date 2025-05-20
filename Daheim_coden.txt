@@ -1,5 +1,12 @@
 ### Wie kann man daheim coden?
 
+
+### Bitte nutzt nicht nur diese Quelle sondern auch Youtube und andere Ratgeber.
+### Windsurf und VSCode sind fast das gleiche Programm. Ihr könnt also auch anleitungen dafür nehmen.
+### Nutzt auch das AI tool in Windsurf und ChatGPT weiter zu kommen. Oft reicht es den Error Code zu kopieren.
+
+
+
 ## Python installieren
 Nutze den Microsoft Store um Python 3.13 zu installieren
 

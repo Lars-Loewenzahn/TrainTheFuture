@@ -1,0 +1,1 @@
+#start to create smart notes app

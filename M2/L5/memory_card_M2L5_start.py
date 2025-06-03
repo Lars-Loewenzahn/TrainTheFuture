@@ -122,6 +122,7 @@ def check_answer():
     else:
         if answers[1].isChecked() or answers[2].isChecked() or answers[3].isChecked():
             show_correct('Incorrect!')
+
 window = QWidget()
 window.setLayout(layout_card)
 window.setWindowTitle('Memo Card')
@@ -131,3 +132,4 @@ btn_OK.clicked.connect(check_answer)
 
 window.show()
 app.exec()
+                                                                             

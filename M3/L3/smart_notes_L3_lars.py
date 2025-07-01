@@ -94,13 +94,49 @@ def show_note():
     list_tags.clear()
     list_tags.addItems(notes[key]["tags"])
 
+def add_note():
+    note_name, ok = QInputDialog.getText(notes_win, "Add note", "Note name:")
+    if ok and note_name != "":
+        notes[note_name] = {"text":"", "tags": []}
+        list_notes.addItem(note_name)
+        list_tags.clear
 
-'''Run the application'''
-#connecting event handling
+button_note_create.clicked.connect(add_note)
+
+def show_note():
+    key = list_notes.selectedItems()[0].text()
+    field_text.setText(notes[key]["text"])
+    list_tags.clear()
+    list_tags.addItems(notes[key]["tags"])
+
 list_notes.itemClicked.connect(show_note)
 
 
-#run the application 
+def save_note():
+    if list_notes.selectedItems():
+        key = list_notes.selectedItems()[0].text()
+        notes[key]["text"] = field_text.toPlainText()
+        with open("M3/L3/notes_data.json", "w") as file:
+            json.dump(notes, file, ensure_ascii=False, indent=2)
+    else:
+        print("no item selected")
+button_note_save.clicked.connect(save_note)
+
+
+def del_note():
+    if list_notes.selectedItems():
+        key = list_notes.selectedItems()[0].text()
+        del notes[key]
+        list_notes.clear()
+        list_tags.clear()
+        field_text.clear()
+        list_notes.addItems(notes)
+        with open("M3/L3/notes_data.json", "w") as file:
+            json.dump(notes, file, ensure_ascii=False, indent=2)
+    else:
+        print("No item selected")
+button_note_del.clicked.connect(del_note)
+'''Run the application'''
 notes_win.show()
 
 
@@ -110,3 +146,7 @@ list_notes.addItems(notes)
 
 
 app.exec_()
+
+
+
+###### wir haben es bis schritt 4 geschafft.

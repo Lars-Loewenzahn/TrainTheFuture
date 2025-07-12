@@ -1,9 +1,24 @@
 {
   "Welcome!": {
-    "text": "This is the best note taking app in the world! Das hier ist ein neuer Text",
+    "text": "This is the best note taking app in the world!",
     "tags": [
       "good",
       "instructions"
+    ]
+  },
+  "Note2!": {
+    "text": "This is the world!",
+    "tags": [
+      "bad",
+      "ugly"
+    ]
+  },
+  "Note3!": {
+    "text": "Working with code. Working",
+    "tags": [
+      "money",
+      "poor",
+      "loud"
     ]
   }
 }

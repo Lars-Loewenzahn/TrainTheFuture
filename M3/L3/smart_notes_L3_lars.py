@@ -1,3 +1,4 @@
+from dataclasses import field
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QListWidget, QLineEdit, QTextEdit, QInputDialog, QHBoxLayout, QVBoxLayout, QFormLayout
 
@@ -136,6 +137,58 @@ def del_note():
     else:
         print("No item selected")
 button_note_del.clicked.connect(del_note)
+
+def add_tag():
+    if list_notes.selectedItems():
+        key = list_notes.selectedItems()[0].text()
+        tag = field_tag.text()
+        if tag and tag not in notes[key]["tags"]:
+            notes[key]["tags"].append(tag)
+            list_tags.addItem(tag)
+            field_tag.clear()
+            with open("M3/L3/notes_data.json", "w") as file:
+                json.dump(notes, file, ensure_ascii=False, indent=2)
+        print("Tag added", tag)
+    else:
+        print("No item selected")
+button_add.clicked.connect(add_tag)
+
+
+def del_tag():
+    if list_tags.selectedItems():
+        key = list_notes.selectedItems()[0].text()
+        tag = list_tags.selectedItems()[0].text()
+        notes[key]["tags"].remove(tag)
+        list_tags.clear()
+        list_tags.addItems(notes[key]["tags"])
+        with open("M3/L3/notes_data.json", "w") as file:
+                json.dump(notes, file, ensure_ascii=False, indent=2)
+        print("Tag removed", tag)
+    else:
+        print("No item selected")
+button_del.clicked.connect(del_tag)
+
+def search_tag():
+    tag = field_tag.text()
+    if tag and button_search.text() == "Search notes by tag":
+        list_notes.clear()
+        list_tags.clear()
+        button_search.setText("Reset search")
+        filtered_notes = {}
+        for key, value in notes.items():
+            if tag in value["tags"]:
+                filtered_notes[key] = value
+        list_notes.addItems(filtered_notes)
+    else:
+        field_tag.clear()
+        list_notes.clear()
+        list_tags.clear()
+        list_notes.addItems(notes)
+        button_search.setText("Search notes by tag")
+
+button_search.clicked.connect(search_tag)
+
+
 '''Run the application'''
 notes_win.show()
 

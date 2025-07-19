@@ -6,7 +6,6 @@
       "instructions"
     ]
   },
-<<<<<<< HEAD
   "Note2!": {
     "text": "This is the world!",
     "tags": [
@@ -18,14 +17,7 @@
     "text": "Working with code. Working",
     "tags": [
       "money",
-      "poor",
-      "loud"
-=======
-  "Hello": {
-    "text": "",
-    "tags": [
-      "Hello"
->>>>>>> 07b1301a298f50882f7373750ee0fb2a5e4f3658
+      "poor"
     ]
   }
 }

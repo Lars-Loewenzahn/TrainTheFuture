@@ -14,7 +14,7 @@ win.resize(700, 500)
 win.setWindowTitle('Easy Editor')
 
 lb_image = QLabel("Image")
-lb_image.setAlignment(Qt.AlignCenter)
+#lb_image.setAlignment(Qt.AlignCenter)
 
 btn_dir = QPushButton("Folder")
 lw_files = QListWidget()

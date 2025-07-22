@@ -14,7 +14,7 @@ win.resize(700, 500)
 win.setWindowTitle('Easy Editor')
 
 lb_image = QLabel("Image")
-lb_image.setAlignment(Qt.AlignCenter)
+#lb_image.setAlignment(Qt.AlignCenter)
 
 btn_dir = QPushButton("Folder")
 lw_files = QListWidget()
@@ -89,9 +89,11 @@ class ImageProcessor:
             self.image.save("temp_preview.png")  # Workaround: save thumbnail
             lb_image.setPixmap(QPixmap("temp_preview.png"))
 
+
+   
+
 workimage = ImageProcessor()
 
-########### Task 4. Showing image preview when file is selected #########
 def showChosenImage():
     if lw_files.currentRow() >= 0:
         filename = lw_files.currentItem().text()

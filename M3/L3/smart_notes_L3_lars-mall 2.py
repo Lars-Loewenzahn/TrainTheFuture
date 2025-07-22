@@ -1,4 +1,3 @@
-from re import search
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QListWidget, QLineEdit, QTextEdit, QInputDialog, QHBoxLayout, QVBoxLayout, QInputDialog, QFormLayout
 
@@ -160,47 +159,6 @@ def add_tag():
 
 button_add.clicked.connect(add_tag)
 
-def del_tag():
-    if list_notes.selectedItems():
-        key = list_notes.selectedItems()[0].text()
-        if not list_tags.selectedItems():
-            print("No tag selected")
-            return
-        tag = list_tags.selectedItems()[0].text()
-        notes[key]["tags"].remove(tag)
-        with open(cache_path, "w") as file:
-            json.dump(notes, file, ensure_ascii=False, indent=2)
-        list_tags.clear()
-        list_tags.addItems(notes[key]["tags"])
-        print("Tag", tag, "deleted in", key, "sucessfull")
-    else:
-        print("No note selected")
-
-button_del.clicked.connect(del_tag)
-
-def search_tag():
-    tag = field_tag.text()
-    if (tag and tag != "") and button_search.text() == "Search notes by tag":
-        print("Filtering")
-        filtered_notes = {}
-        for key, value in notes.items():
-            if tag in value["tags"]:
-                filtered_notes[key] = value
-        list_tags.clear()
-        list_notes.clear()
-        list_notes.addItems(filtered_notes)
-        button_search.setText("Reset search")
-    elif button_search.text() == "Reset search":
-        print("Reseting search")
-        field_tag.clear()
-        list_notes.clear()
-        list_tags.clear()
-        list_notes.addItems(notes)
-        button_search.setText("Search notes by tag")
-    else:
-        print("No term")
-
-button_search.clicked.connect(search_tag)
 
 
 #run the application 

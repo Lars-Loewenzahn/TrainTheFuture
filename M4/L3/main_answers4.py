@@ -90,7 +90,7 @@ class ImageProcessor():
        self.showImage(image_path)
  
    def saveImage(self):
-       '"saves a copy of the file in a sub-folder"
+       """'"saves a copy of the file in a sub-folder"'"""
        path = os.path.join(self.dir, self.save_dir)
        if not(os.path.exists(path) or os.path.isdir(path)):
            os.mkdir(path)

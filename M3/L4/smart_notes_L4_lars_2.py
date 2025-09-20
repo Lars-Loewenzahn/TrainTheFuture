@@ -1,3 +1,4 @@
+
 from dataclasses import field
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QListWidget, QLineEdit, QTextEdit, QInputDialog, QHBoxLayout, QVBoxLayout, QFormLayout
@@ -5,23 +6,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QListWid
 
 import json
 
-
 app = QApplication([])
-
-
-'''Notes in json'''
-notes = {
-    "Welcome!" : {
-        "text" : "This is the best note taking app in the world!",
-        "tags" : ["good", "instructions"]
-    }
-}
-###############################################
-with open("notes_data.json", "w") as file:
-    json.dump(notes, file, ensure_ascii=False)
-
-
-
 
 '''Application interface'''
 #application window parameters
@@ -88,33 +73,6 @@ notes_win.setLayout(layout_notes)
 
 
 '''Application functionality'''
-def save_data(name, content, tags):
-    data = name + "\n" + content
-    for tag in tags:
-        data += "\n #" + tag + "  "
-    filename = name + ".txt"
-    ###################################
-    with open(filename, "w") as file:
-        file.write(data)
-    return
-
-def load_data(name):
-    filename = name + ".txt"
-    #############################################################
-    with open(filename, "r") as file:
-        data = file.readlines()
-
-    tags = []
-    content =""
-    for line in data[1::]:
-        if not line[0] == "#":
-            content += line.replace(" \n", "")
-        else:
-            line = line.replace(" ","")
-            line = line.replace("#", "")
-            tags.append(line.replace("\n", ""))        
-    return content, tags
-
 def show_note():
     #get the text from the note with the title highlighted and display it in the edit field
     key = list_notes.selectedItems()[0].text()
@@ -145,12 +103,10 @@ def save_note():
     if list_notes.selectedItems():
         key = list_notes.selectedItems()[0].text()
         notes[key]["text"] = field_text.toPlainText()
-        content = field_text.toPlainText()
-        tags = list_tags.items()
-        save_data(key, content, tags )
+        with open("M3/L3/notes_data.json", "w") as file:
+            json.dump(notes, file, ensure_ascii=False, indent=2)
     else:
         print("no item selected")
-
 button_note_save.clicked.connect(save_note)
 
 
@@ -216,16 +172,28 @@ def search_tag():
         list_notes.addItems(notes)
         button_search.setText("Search notes by tag")
 
+def load_notes():
+    notes = {}
+    path = "M3/L4/notes"
+    import os
+    for file in os.listdir(path):
+        file_path = os.path.join(path, file)
+        with open(file_path, "r") as f:
+            text = f.read()
+            key = str(file).replace(".txt", "")
+            text_dict = {}
+            text_dict["text"] = text
+            notes[key] = text_dict
+    return notes
+
 button_search.clicked.connect(search_tag)
 
 
 '''Run the application'''
 notes_win.show()
 
-######################################################################################
-with open("notes_data.json", "r") as file:
-    notes = json.load(file)
-
+notes = load_notes()
+print(notes)
 list_notes.addItems(notes)
 
 

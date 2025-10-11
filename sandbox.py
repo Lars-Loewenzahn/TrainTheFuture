@@ -1,5 +1,3 @@
-import json 
+import os
 
-with open("neues_json.json", 'r') as f:
-    notes = json.load(f)
-print(notes["interessen"][1])
+os.mkdir("some_nonses_file")

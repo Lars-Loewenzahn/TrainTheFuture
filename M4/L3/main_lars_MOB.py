@@ -1,3 +1,4 @@
+
 import os
 from PyQt5.QtWidgets import (
     QApplication,
@@ -8,7 +9,6 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QLabel,
     QFileDialog)
-from PIL import Image
 
 app = QApplication([])
 win = QWidget()
@@ -51,42 +51,14 @@ def filter(filenames, extensions):
     for name in filenames:
         #print(name[-4:])
         for ext in extensions:
-            index = (len(extensions) -1)*(-1)
-            print(name[index:])
-            if ext == name[index:]:
+            if ext == name[-4:]:
                 filtered_fn.append(name)
     return filtered_fn
 
-def chooseWorkdir():
-    global workdir
-    workdir = QFileDialog.getExistingDirectory()
-
-def showFilenamesList():
-    chooseWorkdir()
-    extensions = [".jpg", ".png", ".jpeg", ".gif", ".bmp"]
-    filenames = filter(os.listdir(workdir), extensions)
-    lw_files.clear()
-    for filename in filenames:
-        print(filename)
-        lw_files.addItem(filename)
-
-
-btn_dir.clicked.connect(showFilenamesList)
-
-class ImageProcessor:
-    def __init__(self, image = None, filename = None, save_dir = "modified/"):
-        self.image = image
-        self.dir = None
-        self.filename = filename
-        self.save_dir = save_dir
-
-    def loadImage(self, dir, filename):
-        self.dir = dir
-        self.filename = filename
-        image_path = os.path.join(dir, filename)
-        self.image = Image.open(image_path)
-
-
+workdir = QFileDialog.getExistingDirectory()
+filenames = os.listdir(workdir)
+print(filter(filenames, [".png", ".jpg"]))
 win.setLayout(row)
+
 win.show()
 app.exec()

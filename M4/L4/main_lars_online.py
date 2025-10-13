@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 from PIL import Image
-
+from PIL import ImageFilter
 
 app = QApplication([])
 win = QWidget()
@@ -26,6 +26,7 @@ btn_right = QPushButton("Right")
 btn_flip = QPushButton("Mirror")
 btn_sharp = QPushButton("Sharpen")
 btn_bw = QPushButton("B&W")
+btn_blur = QPushButton("Blur")
 lb_image = QLabel("Image")
 
 col1 = QVBoxLayout()
@@ -44,6 +45,7 @@ row_tools.addWidget(btn_right)
 row_tools.addWidget(btn_flip)
 row_tools.addWidget(btn_sharp)
 row_tools.addWidget(btn_bw)
+row_tools.addWidget(btn_blur)
 
 col2.addLayout(row_tools, 80)
 row.addLayout(col2)
@@ -77,13 +79,48 @@ class ImageProcessor():
         image_path = os.path.join(workdir, self.save_dir, self.filename)
         self.showImage(image_path)
 
+    def do_flip(self):
+        self.image = self.image.transpose(Image.FLIP_LEFT_RIGHT)
+        self.saveImage()
+        global workdir
+        image_path = os.path.join(workdir, self.save_dir, self.filename)
+        self.showImage(image_path)
+
+    def do_left(self):
+        self.image = self.image.transpose(Image.ROTATE_90)
+        self.saveImage()
+        global workdir
+        image_path = os.path.join(workdir, self.save_dir, self.filename)
+        self.showImage(image_path)
+    
+    def do_right(self):
+        self.image = self.image.transpose(Image.ROTATE_270)
+        self.saveImage()
+        global workdir
+        image_path = os.path.join(workdir, self.save_dir, self.filename)
+        self.showImage(image_path)
+    
+    def do_sharpen(self):
+        self.image = self.image.filter(ImageFilter.SHARPEN)
+        self.saveImage()
+        global workdir
+        image_path = os.path.join(workdir, self.save_dir, self.filename)
+        self.showImage(image_path)
+
+    def do_blur(self):
+        self.image = self.image.filter(ImageFilter.BLUR)
+        self.saveImage()
+        global workdir
+        image_path = os.path.join(workdir, self.save_dir, self.filename)
+        self.showImage(image_path)
+
+
     def saveImage(self):
         path = os.path.join(workdir, self.save_dir)
         if not(os.path.exists(path) or os.path.isdir(path)):
             os.mkdir(path)
         image_path = os.path.join(path, self.filename)
         self.image.save(image_path)
-
 
 workimage = ImageProcessor()
 
@@ -124,7 +161,11 @@ def filter(filenames, extensions):
 btn_dir.clicked.connect(showFileNameList)
 lw_files.currentRowChanged.connect(showChosenImage)
 btn_bw.clicked.connect(workimage.do_bw)
+btn_flip.clicked.connect(workimage.do_flip)
+btn_left.clicked.connect(workimage.do_left)
+btn_right.clicked.connect(workimage.do_right)
+btn_sharp.clicked.connect(workimage.do_sharpen)
+btn_blur.clicked.connect(workimage.do_blur)
 
 win.show()
 app.exec()
-

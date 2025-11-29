@@ -1,4 +1,3 @@
-from turtle import right
 from pygame import *
 # https://pastebin.com/kbj1aEab
 class GameSprite(sprite.Sprite):
@@ -17,28 +16,7 @@ class GameSprite(sprite.Sprite):
 class Player(GameSprite):
     def update(self):
         keys = key.get_pressed()
-        if keys[K_UP] and self.rect.y > 5:
-            self.rect.y -= self.speed
-        if keys[K_DOWN] and self.rect.y < win_height - 80:
-            self.rect.y += self.speed
-        if keys[K_RIGHT] and self.rect.x < win_width - 80:
-            self.rect.x += self.speed
-        if keys[K_LEFT] and self.rect.x > 5:
-            self.rect.x -= self.speed
-
-class Enemy(GameSprite):
-    side = "left"
-    def update(self):
-        if self.rect.x <= 470:
-            self.side = "right"
-        
-        if self.rect.x >= win_width - 85:
-            self.side = "left"
-
-        if self.side == "left":
-            self.rect.x -= self.speed
-        else:
-            self.rect.x += self.speed
+        print(keys)
 
 win_width = 700
 win_height = 500
@@ -49,7 +27,7 @@ background = transform.scale(image.load("M5/L2/background.jpg"), (win_width, win
 # https://pastebin.com/kbj1aEab
 
 packman = Player("M5/L2/hero.png", 5, win_height - 80, 4)
-monster = Enemy("M5/L2/cyborg.png", win_width - 80, 280, 2)
+monster = GameSprite("M5/L2/cyborg.png", win_width - 80, 280, 2)
 final = GameSprite("M5/L2/treasure.png", win_width - 120, win_height - 80, 0)
 
 game = True
@@ -70,7 +48,6 @@ while game:
     packman.draw()
     packman.update()
     monster.draw()
-    monster.update()
     final.draw()
 
     display.update()

@@ -1,4 +1,5 @@
 from pygame import *
+
 ' ' 'Required classes' ' '
 
 #parent class for sprites 
@@ -72,31 +73,39 @@ win_width = 700
 win_height = 500
 window = display.set_mode((win_width, win_height))
 display.set_caption("Maze")
-background = transform.scale(image.load("background.jpg"), (win_width, win_height))
+background = transform.scale(image.load("M5/L3/background.jpg"), (win_width, win_height))
 
 #Game characters:
-packman = Player('hero.png', 5, win_height - 80, 4)
-monster = Enemy('cyborg.png', win_width - 80, 280, 2)
-final = GameSprite('treasure.png', win_width - 120, win_height - 80, 0)
+packman = Player('M5/L3/hero.png', 5, win_height - 80, 4)
+monster = Enemy('M5/L3/cyborg.png', win_width - 80, 280, 2)
+final = GameSprite('M5/L3/treasure.png', win_width - 120, win_height - 80, 0)
 
 w1 = Wall(154, 205, 50, 100, 20 , 450, 10)
 w2 = Wall(154, 205, 50, 100, 480, 350, 10)
 w3 = Wall(154, 205, 50, 100, 20 , 10, 380)
+w4 = Wall(154, 205, 50, 200, 130, 10, 350)
+w5 = Wall(154, 205, 50, 450, 130, 10, 360)
+w6 = Wall(154, 205, 50, 300, 20, 10, 350)
+w7 = Wall(154, 205, 50, 390, 120, 130, 10)
+walls =[w1, w2, w3, w4, w5 ,w6, w7]
 
+# You win!
+font.init()
+font = font.Font(None, 70)
+win = font.render("You win!", True, (255, 215 , 0))
+lose = font.render("You lose!", True, (255, 0 , 0))
 
 game = True
-
+finish = False
 clock = time.Clock()
 FPS = 60
 
-
-#music
 mixer.init()
-mixer.music.load('jungles.ogg')
+mixer.music.load('M5/L3/jungles.ogg')
 mixer.music.play()
 
-money = mixer.Sound('money.ogg')
-kick = mixer.Sound('kick.ogg')
+money = mixer.Sound('M5/L3/money.ogg')
+kick = mixer.Sound('M5/L3/kick.ogg')
 
 while game:
     for e in event.get():
@@ -112,11 +121,22 @@ while game:
         monster.reset()
         final.reset() 
 
-        w1.draw_wall()
-        w2.draw_wall()
-        w3.draw_wall()
+        for wall in walls:
+            wall.draw_wall()
+            if sprite.collide_rect(packman, wall):
+                finish = True
+                kick.play()
+                window.blit(lose, (200, 200))
 
+        if sprite.collide_rect(packman, final):
+            finish = True
+            money.play()
+            window.blit(win, (200, 200))
 
+        if sprite.collide_rect(packman, monster):
+            finish = True
+            kick.play()
+            window.blit(lose, (200, 200))
 
     display.update()
     clock.tick(FPS)

@@ -1,6 +1,5 @@
-from turtle import right
 from pygame import *
-# https://pastebin.com/kbj1aEab
+
 class GameSprite(sprite.Sprite):
     def __init__(self, image_path, player_x, player_y, speed):
         super().__init__()
@@ -46,7 +45,6 @@ window = display.set_mode((win_width, win_height))
 display.set_caption("Maze")
 
 background = transform.scale(image.load("M5/L2/background.jpg"), (win_width, win_height))
-# https://pastebin.com/kbj1aEab
 
 packman = Player("M5/L2/hero.png", 5, win_height - 80, 4)
 monster = Enemy("M5/L2/cyborg.png", win_width - 80, 280, 2)
@@ -75,4 +73,3 @@ while game:
 
     display.update()
     clock.tick(FPS)
-    # https://pastebin.com/kbj1aEab
